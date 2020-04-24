@@ -45,4 +45,3 @@ https://www.bilibili.com/video/BV1rt4y127ak/
 实现 fac 函数
 接受一个参数 n
 返回 n 的阶乘, 1 * 2 * 3 * ... * n
-计算从 1 到 n 的阶乘，重复了 n 次，所以可以用循环来处理
