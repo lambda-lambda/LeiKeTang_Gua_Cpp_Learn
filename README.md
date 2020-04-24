@@ -10,6 +10,8 @@ https://www.bilibili.com/video/BV1rt4y127ak/
 
 感谢萧井陌老师给我一个可以和清华学子一起努力的机会。
 
+由于学校大一下的面向对象程序设计用java讲的，于是花了6个小时看了看c++的基础语法（基本上可以说没啥基础）
+
 # homework
 
 ## homework 1 cpp基础
