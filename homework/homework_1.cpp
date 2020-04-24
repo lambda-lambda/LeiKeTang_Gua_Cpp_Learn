@@ -400,6 +400,13 @@ void testFac(void)
 void test()
 {
     testSum();
+    testProduct();
+    testAbs();
+    testAverage();
+    testMin();
+    testSum1();
+    testSum2();
+    testFac();
 }
 
 // main 函数的参数是规定，复制粘贴即可
