@@ -143,7 +143,7 @@ bool floatEqual(float a, float b)
     auto delta = 0.00001;
     // 如《〖快编程〗的免费编程入门课》 所述
     // 计算机对浮点数的比较要用这样的方式
-    return a - b > -delta || b - a < delta;
+    return a - b < delta && b - a < delta;
 }
 
 void testSum(void)
@@ -154,7 +154,7 @@ void testSum(void)
     //
     vector<float> v2 = {1, 2, 3, 4, 5, 6};
     float s2 = sum(v2);
-    ensure(floatEqual(s1,21), "sum test error 2");
+    ensure(floatEqual(s2,21), "sum test error 2");
 }
 
 // 作业 1
@@ -399,7 +399,7 @@ void testFac(void)
 //
 void test()
 {
-    testSum2();
+    testSum();
 }
 
 // main 函数的参数是规定，复制粘贴即可
