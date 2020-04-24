@@ -133,15 +133,28 @@ void ensure(bool condition, const string &message)
     }
 }
 
+bool floatEqual(float a, float b)
+{
+    // 这里的 delta 变量的类型我们用了 auto
+    // 这是一个 C++ 11 的新特性
+    // 它的作用是根据变量的值自动推导变量的类型
+    // delta 的值是 0.00001 所以它会是 float 类型
+    // 仅作介绍
+    auto delta = 0.00001;
+    // 如《〖快编程〗的免费编程入门课》 所述
+    // 计算机对浮点数的比较要用这样的方式
+    return a - b > -delta || b - a < delta;
+}
+
 void testSum(void)
 {
     vector<float> v1 = {1, 2, 3, 4};
     float s1 = sum(v1);
-    ensure(s1 == 10, "sum test error 1");
+    ensure(floatEqual(s1, 10), "sum test error 1");
     //
     vector<float> v2 = {1, 2, 3, 4, 5, 6};
     float s2 = sum(v2);
-    ensure(s2 == 21, "sum test error 2");
+    ensure(floatEqual(s1,21), "sum test error 2");
 }
 
 // 作业 1
@@ -173,11 +186,11 @@ void testProduct(void)
 {
     vector<float> v1 = {1, 2, 3, 4};
     float s1 = product(v1);
-    ensure(s1 == 24, "product test error 1");
+    ensure(floatEqual(s1,24), "product test error 1");
 
     vector<float> v2 = {1, 2, 3, 4, 5, 6};
     float s2 = product(v2);
-    ensure(s2 == 720, "product test error 2");
+    ensure(floatEqual(s2, 720), "product test error 2");
 }
 
 // 作业 2
@@ -200,11 +213,11 @@ void testAbs(void)
 {
     float v1 = 10;
     float s1 = abs1(v1);
-    ensure(s1 == 10, "abs test error 1");
+    ensure(floatEqual(s1,10), "abs test error 1");
 
     float v2 = -12;
     float s2 = abs1(v2);
-    ensure(s2 == 12, "abs test error 2");
+    ensure(floatEqual(s2, 12), "abs test error 2");
 }
 
 // 作业 3
@@ -232,11 +245,11 @@ void testAverage(void)
 {
     vector<float> v1 = {1, 2, 3, 4};
     float s1 = average(v1);
-    ensure(s1 == 2.5, "average test error 1");
+    ensure(floatEqual(s1, 2.5), "average test error 1");
 
     vector<float> v2 = {1, 2, 3, 4, 5};
     float s2 = average(v2);
-    ensure(s2 == 3, "average test error 2");
+    ensure(floatEqual(s2, 3), "average test error 2");
 }
 
 // 作业 4
@@ -269,11 +282,11 @@ void testMin(void)
 {
     vector<float> v1 = {11, 20, 3, 45};
     float s1 = min(v1);
-    ensure(s1 == 3, "min test error 1");
+    ensure(floatEqual(s1, 3), "min test error 1");
 
     vector<float> v2 = {11, 2, 1, 41, 3};
     float s2 = min(v2);
-    ensure(s2 == 1, "min test error 2");
+    ensure(floatEqual(s2, 1), "min test error 2");
 }
 
 // 作业 5
