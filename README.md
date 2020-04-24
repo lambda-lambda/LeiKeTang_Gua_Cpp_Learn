@@ -12,9 +12,9 @@ https://www.bilibili.com/video/BV1rt4y127ak/
 
 由于学校大一下的面向对象程序设计用java讲的，于是花了6个小时看了看c++的基础语法（基本上可以说没啥基础）
 
-# homework
+# HomeWork
 
-## homework 1 cpp基础
+## 作业1 c++ 基础
 
 作业 1
 参数是一个只包含数字的 array
