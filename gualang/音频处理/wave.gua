@@ -1,0 +1,93 @@
+
+// 音频处理 
+// 请自行下载 gualang ide 
+// 本课程说明网址 https://www.zhihu.com/question/389457315/answer/1170354190
+// 本课程视频页面 https://www.bilibili.com/video/BV1rt4y127ak/ 
+// 本代码为上课的源码整理总结
+
+// 参考链接
+// http://soundfile.sapp.org/doc/WaveFormat/
+const toBytes = function(number, numOfBytes=4) {
+    var b1 = number & 0x000000FF
+    var b2 = (number & 0x0000FF00) >> 8
+    var b3 = (number & 0x00FF0000) >> 16
+    var b4 = (number & 0xFF000000) >> 24
+    if (numOfBytes == 2) {
+        return [b1, b2]
+    } else {
+        return [b1, b2, b3, b4]
+    }
+    return bytes
+}
+
+const encode = function(string, encoding) {
+    var bytes = string.encode(encoding)
+    var codes = []
+    var i = 0
+    while (i < string.length()) {
+        var code = bytes[i]
+        codes.add(code)
+        i += 1
+    }
+    return codes
+}
+
+const fromPcm = function(pcmData, sampleRate=44100) {
+    var header_length = 44
+    var header = []
+
+    var encoding = 'ascii'
+
+    var chunk_id = 'RIFF'
+    header += encode(chunk_id, encoding)
+
+    // # ChunkSize
+    var chunk_size = pcmData.length() + 36
+    // 4 * bytes == 4 * 8
+    header += toBytes(chunk_size)
+
+    // # Format
+    var format = 'WAVE'
+    header += encode(format, encoding)
+
+    // # Subchunk1ID
+    var subchunk1_id = 'fmt '
+    header += encode(subchunk1_id, encoding)
+
+    // # Subchunk1Size
+    var subchunk1_size = 16
+    header += toBytes(subchunk1_size)
+
+    var audio_format = 1
+    header += toBytes(audio_format, 2)
+
+    var num_channels = 1
+    header += toBytes(num_channels, 2)
+
+    header += toBytes(sampleRate)
+
+    var bits_per_sample = 8
+    var byte_rate = int(sampleRate * num_channels * bits_per_sample / 8)
+    var block_align = int(num_channels * bits_per_sample / 8)
+    header += toBytes(byte_rate)
+    header += toBytes(block_align, 2)
+    header += toBytes(bits_per_sample, 2)
+    //
+    //
+    var subchunk2_id = 'data'
+    header += encode(subchunk2_id, encoding)
+
+    var subchunk2_size = pcmData.length()
+    var bytes8 = toBytes(subchunk2_size)
+    header += bytes8
+
+    var wav_data = header + pcmData
+    return wav_data
+}
+
+const saveFileFromPcm = function(filepath, pcmData, sampleRate=44100) {
+    var wav = fromPcm(pcmData, 10000)
+    var d = wav.toData()
+    d.writeToFile(filepath)
+}
+

@@ -1,0 +1,107 @@
+
+// 音频处理 
+// 请自行下载 gualang ide 
+// 本课程说明网址 https://www.zhihu.com/question/389457315/answer/1170354190
+// 本课程视频页面 https://www.bilibili.com/video/BV1rt4y127ak/ 
+// 本代码为上课的源码整理总结
+
+// 引入包
+const math = import("math")
+const wave = import("wave")
+
+
+const clamp = function(n) {
+    if (n > 255) {
+        n = 255
+    } else if (n < 0) {
+        n = 0
+    }
+    return n
+}
+
+// 假设学会声音编程
+// 用 C++ 需要 5 小时
+// 用 gualang 或者其他你熟悉的快速开发语言，可能需要 1 小时
+const chord = function(c) {
+    
+    
+    // 采样频率 10k
+    // 每秒对声音采样10k次
+    var samplerequency = 10000
+    // 实际音符频率
+    var frequency = c
+    // 预设音量
+    // 标准音量为 0-255 
+    var volume = 50
+
+    // 音符长度（四分音符）
+    var samplesLength = int(samplerequency / 4)
+
+    // 音频的角频率 rad/s  ω = 2πf 
+    // 单位时间内变化的相角弧度值
+    // 单位采样时间（采样一次）内音频的变化
+
+    var r = 2.0 * math.pi * frequency / samplerequency
+    var data = []
+    var i = 0
+
+    // 处理一个音符内的所有单位采样时间的频率变化信息
+    while (i < samplesLength) {
+
+        // 将声音信号放大 128 倍
+        // 将 128 看为 0
+        // 将 255 看为 1
+        // 生成单位采样时间内音频信息
+        var v = 128 + int(volume * math.sin(i * r))
+        // 拼接音频信息
+        data.add(v)
+
+        i = i + 1
+    }
+    return data
+}
+
+const _main = function() {
+    // 参考资料
+    // https://pages.mtu.edu/~suits/notefreqs.html
+
+
+    // 相应音符对应频率
+    var C4 = 261.63
+    var D4 = 293.66
+    var E4 = 329.63
+    var F4 = 349.23
+    var G4 = 392.00
+    var A4 = 440.00
+    var B4 = 493.88
+
+    // var melody = [E4]
+    // var melody = [E4, E4, F4, G4, G4, F4, E4, D4]
+    // var melody = [E4, E4, F4, G4, G4, F4, E4, D4, C4, C4, D4, E4, E4, D4, D4]
+
+    // 乐谱（音符序列）
+    var melody = [E4, D4, C4, D4, E4, E4, E4]
+    var ds = []
+    var i = 0
+
+    // 乐谱合成音乐 调用chord()
+    while (i < melody.length()) {
+        var c = melody[i]
+        var d = chord(c)
+        ds += d
+
+        i = i + 1
+    }
+
+    // 文件存储
+    const filepath = 'sound.wav'
+    wave.saveFileFromPcm(filepath, ds, 10000)
+}
+
+// 主程序调用
+_main()
+
+// 所有人都不能出错的 C++ 作业方案
+// 1，在线运行
+// 2，网站是能够打开的
+// 3，文件不能乱码
