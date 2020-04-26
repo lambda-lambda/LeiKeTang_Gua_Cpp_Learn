@@ -7,11 +7,15 @@
 
 // 参考链接
 // http://soundfile.sapp.org/doc/WaveFormat/
+
+// 转换为二进制文件
 const toBytes = function(number, numOfBytes=4) {
+
     var b1 = number & 0x000000FF
     var b2 = (number & 0x0000FF00) >> 8
     var b3 = (number & 0x00FF0000) >> 16
     var b4 = (number & 0xFF000000) >> 24
+
     if (numOfBytes == 2) {
         return [b1, b2]
     } else {
@@ -20,6 +24,7 @@ const toBytes = function(number, numOfBytes=4) {
     return bytes
 }
 
+// 编码
 const encode = function(string, encoding) {
     var bytes = string.encode(encoding)
     var codes = []
@@ -32,6 +37,10 @@ const encode = function(string, encoding) {
     return codes
 }
 
+// pcm编码采样
+// pcmData 声音数据 
+// samleRate 采样频率 
+
 const fromPcm = function(pcmData, sampleRate=44100) {
     var header_length = 44
     var header = []
@@ -41,7 +50,7 @@ const fromPcm = function(pcmData, sampleRate=44100) {
     var chunk_id = 'RIFF'
     header += encode(chunk_id, encoding)
 
-    // # ChunkSize
+    // # ChunkSize 
     var chunk_size = pcmData.length() + 36
     // 4 * bytes == 4 * 8
     header += toBytes(chunk_size)
@@ -85,6 +94,7 @@ const fromPcm = function(pcmData, sampleRate=44100) {
     return wav_data
 }
 
+// 保存文件
 const saveFileFromPcm = function(filepath, pcmData, sampleRate=44100) {
     var wav = fromPcm(pcmData, 10000)
     var d = wav.toData()
