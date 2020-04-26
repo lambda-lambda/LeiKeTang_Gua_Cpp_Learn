@@ -154,7 +154,6 @@ void testUppercase()
 //
 // 实现步骤
 //     1. 遍历字符串 s，如果 s 中的元素是大写字母（即这个元素被 upper 字符串包含）
-//          就调用 lowercase 函数。
 //     2. 如果 s 中的元素是小写字母，直接拼接即可
 
 string
@@ -172,7 +171,10 @@ lowercase1(const string &s)
         int index = find(upper, s[i]);
         if (index != -1)
         {
-            lowercase(s);
+            result += lower[index];
+        }
+        else{
+            result +=s[i];
         }
         i += 1;
     }
@@ -196,7 +198,27 @@ void testLowercase1()
 string
 uppercase1(const string &s)
 {
-    
+    // 这里是两个字符串, 包含了大写字母和小写字母
+    // 用 const 修饰是因为它们并不会被修改
+    const string lower = "abcdefghijklmnopqrstuvwxyz";
+    const string upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // 初始化一个空字符串
+    string result = "";
+    size_t i = 0;
+    while (i < s.size())
+    {
+        int index = find(lower, s[i]);
+        if (index != -1)
+        {
+            result += upper[index];
+        }
+        else
+        {
+            result += s[i];
+        }
+        i += 1;
+    }
+    return result;
 }
 
 void testUppercase1()
