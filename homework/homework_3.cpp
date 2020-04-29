@@ -232,10 +232,13 @@ bool isSpace(const string &s)
     // 3. 如果字符不是空格, 返回 false
     // 4. 在循环结束后, 返回 true
     bool result = true;
+    if (s == "")
+    {
+        result = false;
+    }
     for (int i = 0; i < s.length(); i++)
     {
-
-        if (s[i] != ' ' || s == "")
+        if (s[i] != ' ')
         {
             result = false;
         }
@@ -250,7 +253,7 @@ void testIsSpace()
     ensure(isSpace("   "), "isSpace 测试 2");
     // C++ 中 not 可以替代 !
     // 同理还有 and 替代 && 和 or 替代 ||
-    // ensure(not isSpace(""), "isSpace 测试 3");
+    ensure(not isSpace(""), "isSpace 测试 3");
     ensure(not isSpace("gua"), "isSpace 测试 4");
     ensure(not isSpace("  gua"), "isSpace 测试 5");
 }
@@ -286,11 +289,15 @@ bool isDigit(const string &s)
     // 2. 将判断字符是否为空格的部分改为判断是否为数字
     //     通过判断字符是否在字符串 "0123456789" 中, 来判断其是否为数字
     bool result = true;
+    if (s == "")
+    {
+        result = false;
+    }
     string number = "0123456789";
     for (int i = 0; i < s.length(); i++)
     {
 
-        if (find(number, s[i]) == -1 || s.size() == 0)
+        if (find(number, s[i]) == -1)
         {
             result = false;
             break;
@@ -307,7 +314,7 @@ void testIsDigit()
     ensure(not isDigit("  "), "is_digit 测试 3");
     ensure(not isDigit("1.1"), "is_digit 测试 4");
     ensure(not isDigit("gua"), "is_digit 测试 5");
-    // ensure(not isDigit(""), "is_digit 测试 6");
+    ensure(not isDigit(""), "is_digit 测试 6");
 }
 
 // 作业 7
@@ -331,8 +338,14 @@ stripLeft(const string &s)
     // string s1 = s.substr(2, 5);
     // 结果是 aibia
     // 第一个参数表示开始的下标，第二个参数表示切片的个数
-
-    
+    int i;
+    for (i = 0; i < s.size(); i++)
+    {
+        if (s[i] != ' ')
+            break;
+    }
+    string res = s.substr(i);
+    return res;
 }
 
 // 测试函数
@@ -360,8 +373,14 @@ stripRight(const string &s)
     //     从右到左遍历的方式是让数字从 n 到 0
     // 2. 遍历字符串找到不是空格的字符的下标
     // 3. 切片并返回
-
-
+    int i;
+    for (i = s.size() - 1; i > -1; i--)
+    {
+        if (s[i] != ' ')
+            break;
+    }
+    string result = s.substr(0, i + 1);
+    return result;
 }
 
 // 测试函数
@@ -390,7 +409,9 @@ strip(const string &s)
     // 2. 对上一步的结果继续调用 stripRight
     // 3. 返回结果
 
-    return 0;
+    string left = stripLeft(s);
+    string result = stripRight(left);
+    return result;
 }
 
 // 测试函数
@@ -419,8 +440,27 @@ replace(const string &s, const string &old_str, const string &new_str)
     // 1. 找到 old_str 的下标
     // 2. 把 s 切成 2 个不包含 old_str 的字符串
     // 3. 拼接并返回结果
-
-    return 0;
+    string result;
+    for (int i = 0; i < s.size(); i++)
+    {
+        int start = i;
+        int in = true;
+        for (int j = 0; j < old_str.size(); j++)
+        {
+            if (old_str[j] != s[start])
+            {
+                in = false;
+                break;
+            }
+            else
+                start++;
+        }
+        if (in)
+        {
+            result = s.substr(0, i) + new_str + s.substr(start);
+        }
+    }
+    return result;
 }
 
 // 测试函数
