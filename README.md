@@ -25,7 +25,7 @@ gualang源代码即相关笔记
 # c++
 gualang源代码即相关笔记
 
-详细见 [gualang](./c++)
+详细见 [c++](./c++)
 
 ## 网络socket
 
