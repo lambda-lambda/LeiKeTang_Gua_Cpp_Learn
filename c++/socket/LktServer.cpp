@@ -24,7 +24,7 @@ void server()
     // Mac 直接注释即可
     WSADATA wsaData;
     WSAStartup(MAKEWORD(2, 2), &wsaData);
-    
+
 
     int socketFd = socket(AF_INET, SOCK_STREAM, 0);
     // 服务器的 ip 和 端口
@@ -52,7 +52,9 @@ void server()
     char data[size];
 
     // 接收 客户端数据包
+    // WINSOCK_API_LINKAGE int PASCAL recv (SOCKET, char *, int, int);
     recv(connection, data, size, 0);
+    
     printf("recv:(%s)\n", data);
 }
 
