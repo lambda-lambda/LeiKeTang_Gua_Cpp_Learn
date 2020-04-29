@@ -1,4 +1,4 @@
-#include "LktServer.hpp"
+// #include "LktServer.hpp"
 
 #include <iostream>
 
@@ -19,7 +19,10 @@ using namespace std;
 #pragma comment(lib, "Ws2_32.lib")
 
 void server()
-{
+{   
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
+
     int socketFd = socket(AF_INET, SOCK_STREAM, 0);
     // 服务器的 ip 和 端口
     struct sockaddr_in serverAddress;
