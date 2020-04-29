@@ -23,6 +23,9 @@ gualang源代码即相关笔记
 上课源码添加中文注释和个人理解
 
 # c++
+gualang源代码即相关笔记
+
+详细见 [gualang](./c++)
 
 ## 网络socket
 
