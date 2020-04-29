@@ -20,8 +20,11 @@ using namespace std;
 
 void server()
 {   
+    // windows socket接口 初始化
+    // Mac 直接注释即可
     WSADATA wsaData;
     WSAStartup(MAKEWORD(2, 2), &wsaData);
+    
 
     int socketFd = socket(AF_INET, SOCK_STREAM, 0);
     // 服务器的 ip 和 端口
